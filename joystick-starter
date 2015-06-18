@@ -1,0 +1,57 @@
+#! /bin/sh
+
+### BEGIN INIT INFO
+# Provides:             joystick
+# Required-Start:       $remote_fs $syslog
+# Required-Stop:        $remote_fs $syslog
+# Default-Start:        2 3 4 5
+# Default-Stop:         0 1 6
+# Short-Description:    Joystick/Keyboardemulation
+### END INIT INFO
+
+set -e
+
+test -x /usr/local/bin/joystick || exit 0
+
+
+#umask 022
+
+. /lib/lsb/init-functions
+
+case "$1" in
+  start)
+        log_daemon_msg "Starting Joystick/Keyboardemulation" "joystick" || true
+        if start-stop-daemon --start --quiet --oknodo --pidfile /var/run/joystick.pid --exec /usr/local/bin/joystick; then
+            log_end_msg 0 || true
+        else
+            log_end_msg 1 || true
+        fi
+        ;;
+  stop)
+        log_daemon_msg "Stopping Joystick/Keyboardemulation" "joystick" || true
+        if start-stop-daemon --stop --quiet --oknodo --pidfile /var/run/joystick.pid; then
+            log_end_msg 0 || true
+        else
+            log_end_msg 1 || true
+        fi
+        ;;
+
+  restart)
+        log_daemon_msg "Restarting Joystick/Keyboardemulation" "joystick" || true
+        start-stop-daemon --stop --quiet --oknodo --retry 30 --pidfile /var/run/joystick.pid
+        if start-stop-daemon --start --quiet --oknodo --pidfile /var/run/joystick.pid --exec /usr/local/bin/joystick; then
+            log_end_msg 0 || true
+        else
+            log_end_msg 1 || true
+        fi
+        ;;
+  status)
+        status_of_proc -p /var/run/joystick.pid /usr/local/bin/joystick joystick && exit 0 || exit $?
+        ;;
+
+  *)
+        log_action_msg "Usage: /etc/init.d/joystick {start|stop|restart|status}" || true
+        exit 1
+esac
+
+exit 0
