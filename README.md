@@ -17,7 +17,7 @@ Um mit einem anderen Rechner zu spielen, kann der Monitor des Kabinetts mitgenut
 
 KVM Switch ON schaltet 5V für den Switch an und aus. KVM Switch Select leitet die 5V an den jeweiligen PS2 Eingang.
 
-Über die serielle Schnittstelle kann etwa ein Arduino Micro oder Leonardo angeschlossen werden. Die Daten werden als #KEY ON/OFF gesendet. So erhält man beim bewegen des Joysticks etwa **2 1** - **2 0** und für das Drücken einer Taste **12 1** **12 0**. Die Coins werden mit 40 und 41 ausgesandt.
+Über die serielle Schnittstelle kann etwa ein Arduino Micro oder Leonardo angeschlossen werden. Die Daten werden als #KEY ON/OFF gesendet. So erhält man beim bewegen des Joysticks etwa **2 1** / **2 0** und für das Drücken einer Taste **12 1** / **12 0**. Die Coins werden mit 40 und 41 ausgesandt.
 
 Die genaue Pinbelegung kann im `keys[]` eingesehen werden. Der vorletzte Pin am MCP23017 (GPB6) fungiert als Shift-Taste. Damit werden die Tasten umbelegt, etwa auf Münzeinwurf, Bildschirmwechsel, TAB/ESC oder herunterfahren.
 
